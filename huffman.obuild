@@ -1,0 +1,9 @@
+name: huffman
+version: 1.0
+obuild-ver: 1
+
+
+executable huffman
+      main-is: huffman.ml
+      src-dir: .
+      build-deps: bitv, bytes
