@@ -110,15 +110,10 @@ let huff_decompress comp_txt huff_tree =
 
 let compress txt =
 	let freq_tab = make_freq_tab txt in
-	print_string "DEBUG1\n" ;
 	let node_list = make_node_list freq_tab in
-	print_string "DEBUG2\n" ;
 	let huff_tree = make_huffman_tree node_list in
-	print_string "DEBUG3\n" ;
 	let huff_table = make_huffman_table huff_tree in
-	print_string "DEBUG4\n" ;
 	let txt_comp = huff_compress txt huff_table in
-	print_string "DEBUG5\n" ;
 	(huff_tree, txt_comp)
 ;;
 
@@ -128,72 +123,3 @@ let decompress mess =
 	|(huff_tree, txt_comp)
 		-> huff_decompress txt_comp huff_tree
 ;;
-
-let lec_fic f =
-	let fich = open_in f in
-	let rec loop out =
-		try loop ((input_line fich)::out) with
-			|End_of_file -> out
-	in
-	String.concat "\n" (List.rev (loop []))
-;;
-
-let load file =
-  try
-    let ich = open_in file in
-    let len = in_channel_length ich in
-    let buf = Buffer.create len in
-    Buffer.add_channel buf ich len;
-    close_in ich;
-    Some buf
-  with _ -> None
-
-(*let txt = lec_fic "/media/nico/iomega_Nic/NIC SAUVEGARDE/Nic/film/Lord of War (2005) [1080p]/Lord.of.War.2005.1080p.BrRip.x264.YIFY.mp4";;
-*)
-let txt = match load "/home/nico/Téléchargements/Better.Call.Saul.S01E01.HDTV.x264-KILLERS.srt" with
-  | None -> failwith "Erreur lors de la lecture du fichier"
-  | Some buf -> Buffer.contents buf;;
-
-let (dico, txt_comp) = compress txt;;
-(*print_string txt;;
-print_newline ();;
-print_string (Bitv.L.to_string txt_comp);;
-print_newline ();;*)
-
-print_int (Bitv.length txt_comp);;
-print_newline ();;
-print_int (String.length txt * 8);;
-print_newline ();;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
